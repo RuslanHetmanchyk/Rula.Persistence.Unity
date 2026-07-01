@@ -1,6 +1,6 @@
 ﻿# Rula.Persistence.Unity
 
-Unity adapter package for [Rula.Persistence](https://github.com/<username>/Rula.Persistence).
+Unity adapter package for [Rula.Persistence](https://github.com/RuslanHetmanchyk/Rula.Persistence).
 
 This package provides Unity-specific implementations and integrations for the core persistence library.
 
@@ -17,14 +17,7 @@ The package is designed to be used as a Unity Package Manager (UPM) package and 
 Open Unity Package Manager:
 
 ```
-Window → Package Manager
-```
-
-Click:
-
-```
-+
-→ Add package from git URL...
+Window → Package Manager → Add package from git URL...
 ```
 
 Enter the repository URL:
@@ -34,6 +27,15 @@ https://github.com/RuslanHetmanchyk/Rula.Persistence.Unity.git
 ```
 
 Unity will download and install the package automatically.
+
+## Quick Start
+
+Create a SaveManager with the default Unity configuration:
+
+```csharp
+using Rula.Persistence.Unity.Extensions;
+
+var saveManager = SaveManagerFactory.CreateDefault();
 
 ## Local Development
 
