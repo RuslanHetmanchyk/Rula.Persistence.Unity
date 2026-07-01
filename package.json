@@ -1,0 +1,11 @@
+﻿{
+  "name": "com.rula.persistence.unity",
+  "version": "0.1.0",
+  "displayName": "Rula Persistence Unity",
+  "description": "Unity integration package for Rula.Persistence",
+  "unity": "2021.3",
+  "author": {
+    "name": "Rula"
+  },
+  "license": "MIT"
+}
