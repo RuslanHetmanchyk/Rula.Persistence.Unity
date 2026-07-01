@@ -1,76 +1,254 @@
 ﻿# Rula.Persistence.Unity
 
-Unity adapter package for [Rula.Persistence](https://github.com/RuslanHetmanchyk/Rula.Persistence).
+Unity integration package for [Rula.Persistence repository](https://github.com/RuslanHetmanchyk/Rula.Persistence?utm_source=chatgpt.com).
 
-This package provides Unity-specific implementations and integrations for the core persistence library.
+This package provides Unity-specific implementations for:
 
-The package is designed to be used as a Unity Package Manager (UPM) package and can be installed directly from a Git repository.
+* storage
+* serialization
+* logging
+* time provider
+* default `SaveManager` configuration
+
+The package is designed to be installed through Unity Package Manager using a Git URL.
+
+---
 
 ## Requirements
 
 * Unity 2021.3 LTS or newer
+* .NET Standard 2.1 compatible Unity runtime
 
-## Installation
+---
 
-### Install via Git URL
+# Installation
 
-Open Unity Package Manager:
+## Install via Git URL
+
+Open:
 
 ```
-Window → Package Manager → Add package from git URL...
+Window → Package Manager
 ```
 
-Enter the repository URL:
+Click:
+
+```
++
+```
+
+Select:
+
+```
+Add package from git URL
+```
+
+Enter:
 
 ```
 https://github.com/RuslanHetmanchyk/Rula.Persistence.Unity.git
 ```
 
-Unity will download and install the package automatically.
+To install a specific version:
 
-## Quick Start
+```
+https://github.com/RuslanHetmanchyk/Rula.Persistence.Unity.git#v0.1.0
+```
 
-Create a SaveManager with the default Unity configuration:
+---
+
+# Quick Start
+
+Create a default configured `SaveManager`:
 
 ```csharp
 using Rula.Persistence.Unity.Extensions;
 
 var saveManager = SaveManagerFactory.CreateDefault();
+```
+
+The factory creates a complete Unity persistence pipeline:
+
+* `PersistentDataStorage`
+* `NewtonsoftSaveSerializer`
+* `UnitySaveLogger`
+* `UnityClock`
+
+Example:
+
+```csharp
+var saveManager = SaveManagerFactory.CreateDefault();
+
+await saveManager.SaveAsync("player-slot");
+
+await saveManager.LoadAsync("player-slot");
+```
+
+---
+
+# Basic Usage Sample
+
+The package includes a complete usage example.
+
+To import the sample:
+
+```
+Window
+→ Package Manager
+→ Rula Persistence Unity
+→ Samples
+→ Basic Usage
+→ Import
+```
+
+The sample demonstrates:
+
+* creating `SaveManager`
+* registering saveable data
+* saving player state
+* loading player state
+* using Unity UI with persistence
+
+After importing, open:
+
+```
+Assets
+└── Samples
+    └── Rula.Persistence.Unity
+        └── 0.1.0
+            └── BasicUsage
+                └── Scenes
+                    └── BasicUsage.unity
+```
+
+---
+
+# Package Structure
+
+```
+Rula.Persistence.Unity
+
+Runtime
+│
+├── Plugins
+│   ├── Rula.Persistence.dll
+│   └── Newtonsoft.Json.dll
+│
+└── Unity
+    │
+    ├── Logging
+    │   └── UnitySaveLogger
+    │
+    ├── Storage
+    │   └── PersistentDataStorage
+    │
+    ├── Serialization
+    │   └── NewtonsoftSaveSerializer
+    │
+    ├── Extensions
+    │   └── SaveManagerFactory
+    │
+    └── UnityClock
+```
+
+---
+
+# Architecture
+
+The package follows a layered architecture.
+
+```
+Rula.Persistence
+        |
+        |
+        v
+Rula.Persistence.Unity
+
+        |
+        |
+        +-- PersistentDataStorage
+        |
+        +-- NewtonsoftSaveSerializer
+        |
+        +-- UnitySaveLogger
+        |
+        +-- UnityClock
+```
+
+Core persistence logic remains independent from Unity.
+
+The Unity package only provides platform-specific implementations.
+
+---
+
+# Development
 
 ## Local Development
 
-For local package development, add the package from disk:
+Clone repository:
 
 ```
-+
-→ Add package from disk...
+git clone https://github.com/RuslanHetmanchyk/Rula.Persistence.Unity.git
 ```
 
-Select the `package.json` file located in the root directory of this repository.
-
-This allows developing the package directly while testing it inside a Unity project.
-
-## Package Structure
-
-The package follows the standard Unity Package Manager structure:
+Open the package through Unity Package Manager:
 
 ```
-Runtime/
-└── Unity/
-    ├── Serialization/
-    ├── Storage/
-    ├── Logging/
-    └── Extensions/
+Package Manager
+→ Add package from disk
 ```
 
-## Architecture
+Select:
 
-`Rula.Persistence.Unity` contains only Unity-specific code.
+```
+package.json
+```
 
-Core persistence functionality is provided by the `Rula.Persistence` library and is intentionally kept separate from this package.
+---
 
-The Unity package acts as an adapter layer that integrates the core library with Unity-specific systems.
+## Package Development Structure
 
-## License
+### Runtime
 
-MIT
+Contains runtime code included in Unity builds.
+
+```
+Runtime
+```
+
+### Samples
+
+Contains optional examples imported through Unity Package Manager.
+
+```
+Samples~
+```
+
+---
+
+# Dependencies
+
+Included inside the package:
+
+* Rula.Persistence core library
+* Newtonsoft.Json runtime dependency
+
+No additional Unity packages are required.
+
+---
+
+# Versioning
+
+Current version:
+
+```
+0.1.0
+```
+
+The package follows semantic versioning.
+
+---
+
+# License
+
+MIT License
