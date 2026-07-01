@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "displayName": "Rula Persistence Unity",
   "description": "Unity integration package for Rula.Persistence",
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Basic persistence usage example.",
+      "path": "Samples~/BasicUsage"
+    }
+  ],
   "unity": "2021.3",
   "author": {
     "name": "Rula"
