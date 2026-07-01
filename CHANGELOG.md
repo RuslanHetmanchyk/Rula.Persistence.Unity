@@ -8,8 +8,9 @@ All notable changes to this package will be documented in this file.
 
 - Unity adapter package for Rula.Persistence.
 - Persistent storage implementation using Unity persistent data path.
-- Newtonsoft.Json serializer integration.
-- Unity logger implementation.
+- Newtonsoft.Json based serializer.
+- Unity logging implementation.
 - Unity clock implementation.
 - SaveManager factory for default Unity configuration.
-- Basic usage sample.
+- Basic Usage sample.
+- UPM installation support through Git URL.
