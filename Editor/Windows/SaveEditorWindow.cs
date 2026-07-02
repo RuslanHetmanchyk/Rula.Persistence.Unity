@@ -1,11 +1,14 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using Rula.Persistence.Unity.Editor.Services;
+using System.IO;
 
 namespace Rula.Persistence.Unity.Editor.Windows
 {
     public sealed class SaveEditorWindow : EditorWindow
     {
+        private Vector2 _scrollPosition;
+        
         [MenuItem("Tools/Rula/Persistence/Save Editor")]
         public static void Open()
         {
@@ -29,6 +32,21 @@ namespace Rula.Persistence.Unity.Editor.Windows
                 UnityEditor.EditorUtility.RevealInFinder(
                     SaveFileService.SaveDirectory);
             }
+
+            GUILayout.Space(10);
+
+            GUILayout.Label("Save Files", EditorStyles.boldLabel);
+
+            _scrollPosition = EditorGUILayout.BeginScrollView(
+                _scrollPosition);
+
+            foreach (var file in SaveFileService.GetSaveFiles())
+            {
+                EditorGUILayout.LabelField(
+                    Path.GetFileName(file));
+            }
+
+            EditorGUILayout.EndScrollView();
         }
     }
 }
