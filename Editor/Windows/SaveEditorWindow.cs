@@ -8,6 +8,7 @@ namespace Rula.Persistence.Unity.Editor.Windows
     public sealed class SaveEditorWindow : EditorWindow
     {
         private Vector2 _scrollPosition;
+        private string _selectedFilePath;
         
         [MenuItem("Tools/Rula/Persistence/Save Editor")]
         public static void Open()
@@ -22,31 +23,34 @@ namespace Rula.Persistence.Unity.Editor.Windows
             GUILayout.Space(10);
 
             EditorGUILayout.LabelField(
-                "Save Directory",
+                "Persistent Data Path",
                 SaveFileService.SaveDirectory);
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("Open Save Folder"))
             {
-                UnityEditor.EditorUtility.RevealInFinder(
+                EditorUtility.RevealInFinder(
                     SaveFileService.SaveDirectory);
             }
 
             GUILayout.Space(10);
 
-            GUILayout.Label("Save Files", EditorStyles.boldLabel);
-
-            _scrollPosition = EditorGUILayout.BeginScrollView(
-                _scrollPosition);
-
-            foreach (var file in SaveFileService.GetSaveFiles())
+            if (GUILayout.Button("Open Save File"))
             {
-                EditorGUILayout.LabelField(
-                    Path.GetFileName(file));
+                _selectedFilePath = EditorUtility.OpenFilePanel(
+                    "Open Save File",
+                    SaveFileService.SaveDirectory,
+                    string.Empty);
             }
 
-            EditorGUILayout.EndScrollView();
+            GUILayout.Space(10);
+
+            EditorGUILayout.LabelField(
+                "Selected File",
+                string.IsNullOrEmpty(_selectedFilePath)
+                    ? "No file selected."
+                    : _selectedFilePath);
         }
     }
 }
