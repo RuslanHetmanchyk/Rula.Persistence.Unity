@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Rula.Persistence.Abstractions;
+using UnityEngine;
 
 namespace Rula.Persistence.Unity.Storage
 {
@@ -22,7 +23,15 @@ namespace Rula.Persistence.Unity.Storage
             string data,
             CancellationToken token = default)
         {
-            throw new System.NotImplementedException();
+            token.ThrowIfCancellationRequested();
+
+            PlayerPrefs.SetString(
+                GetKey(slot),
+                data);
+
+            PlayerPrefs.Save();
+
+            return Task.CompletedTask;
         }
 
         public Task<string> LoadAsync(
@@ -40,6 +49,11 @@ namespace Rula.Persistence.Unity.Storage
         public void Delete(string slot)
         {
             throw new System.NotImplementedException();
+        }
+
+        private string GetKey(string slot)
+        {
+            return string.Concat(_options.KeyPrefix, slot);
         }
     }
 }
