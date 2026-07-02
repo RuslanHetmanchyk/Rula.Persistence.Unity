@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Rula.Persistence.Abstractions;
 using UnityEngine;
@@ -74,7 +76,20 @@ namespace Rula.Persistence.Unity.Storage
 
         public void Delete(string slot)
         {
-            throw new System.NotImplementedException();
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+
+            string key = GetKey(slot);
+
+            if (!PlayerPrefs.HasKey(key))
+            {
+                return;
+            }
+
+            PlayerPrefs.DeleteKey(key);
+            PlayerPrefs.Save();
         }
 
         private string GetKey(string slot)
