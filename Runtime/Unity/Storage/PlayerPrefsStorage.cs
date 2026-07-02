@@ -64,7 +64,12 @@ namespace Rula.Persistence.Unity.Storage
 
         public bool Exists(string slot)
         {
-            throw new System.NotImplementedException();
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+
+            return PlayerPrefs.HasKey(GetKey(slot));
         }
 
         public void Delete(string slot)
