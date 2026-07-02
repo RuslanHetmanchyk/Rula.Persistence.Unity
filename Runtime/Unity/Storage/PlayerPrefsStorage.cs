@@ -23,6 +23,11 @@ namespace Rula.Persistence.Unity.Storage
             string data,
             CancellationToken token = default)
         {
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+
             token.ThrowIfCancellationRequested();
 
             PlayerPrefs.SetString(
@@ -38,7 +43,23 @@ namespace Rula.Persistence.Unity.Storage
             string slot,
             CancellationToken token = default)
         {
-            throw new System.NotImplementedException();
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+
+            token.ThrowIfCancellationRequested();
+
+            string key = GetKey(slot);
+
+            if (!PlayerPrefs.HasKey(key))
+            {
+                throw new KeyNotFoundException(
+                    $"Save slot '{slot}' was not found.");
+            }
+
+            return Task.FromResult(
+                PlayerPrefs.GetString(key));
         }
 
         public bool Exists(string slot)
