@@ -42,6 +42,14 @@ namespace Rula.Persistence.Unity.Editor.Windows
                 OpenSaveFile();
             }
 
+            using (new EditorGUI.DisabledScope(string.IsNullOrEmpty(_selectedFilePath)))
+            {
+                if (GUILayout.Button("Reload"))
+                {
+                    ReloadFile();
+                }
+            }
+
             GUILayout.Space(10);
 
             EditorGUILayout.LabelField(
@@ -76,6 +84,26 @@ namespace Rula.Persistence.Unity.Editor.Windows
 
             _selectedFilePath = filePath;
             _fileContent = File.ReadAllText(filePath);
+        }
+
+        private void ReloadFile()
+        {
+            if (string.IsNullOrEmpty(_selectedFilePath))
+            {
+                return;
+            }
+
+            if (!File.Exists(_selectedFilePath))
+            {
+                EditorUtility.DisplayDialog(
+                    "File not found",
+                    "The selected save file no longer exists.",
+                    "OK");
+
+                return;
+            }
+
+            _fileContent = File.ReadAllText(_selectedFilePath);
         }
     }
 }
