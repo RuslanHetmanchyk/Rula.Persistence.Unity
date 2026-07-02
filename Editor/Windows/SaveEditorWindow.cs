@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Rula.Persistence.Unity.Editor.Services;
 
 namespace Rula.Persistence.Unity.Editor.Windows
 {
@@ -14,9 +15,20 @@ namespace Rula.Persistence.Unity.Editor.Windows
         private void OnGUI()
         {
             GUILayout.Label("Rula Persistence Save Editor", EditorStyles.boldLabel);
+
             GUILayout.Space(10);
 
-            GUILayout.Label("Coming soon...");
+            EditorGUILayout.LabelField(
+                "Save Directory",
+                SaveFileService.SaveDirectory);
+
+            GUILayout.Space(10);
+
+            if (GUILayout.Button("Open Save Folder"))
+            {
+                UnityEditor.EditorUtility.RevealInFinder(
+                    SaveFileService.SaveDirectory);
+            }
         }
     }
 }
