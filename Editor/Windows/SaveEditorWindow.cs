@@ -62,12 +62,9 @@ namespace Rula.Persistence.Unity.Editor.Windows
 
             GUILayout.Label("Content", EditorStyles.boldLabel);
 
-            using (new EditorGUI.DisabledScope(true))
-            {
-                EditorGUILayout.TextArea(
-                    _fileContent,
-                    GUILayout.ExpandHeight(true));
-            }
+            _fileContent = EditorGUILayout.TextArea(
+                _fileContent,
+                GUILayout.ExpandHeight(true));
         }
         
         private void OpenSaveFile()
